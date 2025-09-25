@@ -3,7 +3,7 @@ name: build
 on:
   push:
     branches:
-      - main
+
   pull_request:
 
 jobs:
@@ -47,7 +47,7 @@ jobs:
       - name: Run govulncheck
         uses: golang/govulncheck-action@b625fbe08f3bccbe446d94fbf87fcc875a4f50ee # v1.0.4
         with:
-          go-version-input: ''
+          go-version-input: ""
           go-version-file: go.mod
           repo-checkout: false
           go-package: ./...
@@ -62,7 +62,7 @@ jobs:
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # 0.33.1
         with:
-          scan-type: 'fs'
+          scan-type: "fs"
 
       - name: Build octocov and run as a action
         uses: ./testdata/actions/coverage
@@ -70,15 +70,15 @@ jobs:
           MACKEREL_API_KEY: ${{ secrets.MACKEREL_API_KEY }}
           OCTOCOV_CUSTOM_METRICS_BENCHMARK_1: ./testdata/custom_metrics/benchmark_1.json
           OCTOCOV_CUSTOM_METRICS_BENCHMARK_0: ./testdata/custom_metrics/benchmark_0.json
-          GOTOOLCHAIN: 'go${{ steps.setup-go.outputs.go-version }}'
+          GOTOOLCHAIN: "go${{ steps.setup-go.outputs.go-version }}"
 
-      - name: 'RE: Build octocov and run as a action' # for checking re-upload artifact
+      - name: "RE: Build octocov and run as a action" # for checking re-upload artifact
         uses: ./testdata/actions/coverage
         env:
           MACKEREL_API_KEY: ${{ secrets.MACKEREL_API_KEY }}
           OCTOCOV_CUSTOM_METRICS_BENCHMARK_1: ./testdata/custom_metrics/benchmark_1.json
           OCTOCOV_CUSTOM_METRICS_BENCHMARK_0: ./testdata/custom_metrics/benchmark_0.json
-          GOTOOLCHAIN: 'go${{ steps.setup-go.outputs.go-version }}'
+          GOTOOLCHAIN: "go${{ steps.setup-go.outputs.go-version }}"
 
       - name: Show rate limit
         run: |
